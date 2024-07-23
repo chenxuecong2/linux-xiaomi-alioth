@@ -1,0 +1,21 @@
+!<thin>
+//                                              216       `
+focaltech_core.o/
+focaltech_ex_fun.o/
+focaltech_ex_mode.o/
+focaltech_gesture.o/
+focaltech_esdcheck.o/
+focaltech_spi.o/
+focaltech_point_report_check.o/
+focaltech_flash.o/
+focaltech_flash/focaltech_upgrade_ft3658u.o/
+
+/0              0           0     0     644     133312    `
+/18             0           0     0     644     69368     `
+/38             0           0     0     644     44088     `
+/59             0           0     0     644     48064     `
+/80             0           0     0     644     3880      `
+/102            0           0     0     644     21976     `
+/119            0           0     0     644     3904      `
+/151            0           0     0     644     157344    `
+/170            0           0     0     644     35224     `
