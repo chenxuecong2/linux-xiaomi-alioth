@@ -619,7 +619,39 @@
 						20 20 20 10>;
 	};
 };
+
+&mdss {
+        status = "okay";
+ };
  
+ &mdss_dsi0 {
+ 	vdda-supply = <&vreg_l9a_1p2>;
+ 	qcom,master-dsi;
+  	status = "okay";
+ 
+ 	display_panel: panel@0 {
+  		reg = <0>;
+ 		vddio-supply = <&vreg_l14a_1p88>;
+  		reset-gpios = <&tlmm 12 0>;
+		
+ 		port {
+ 			panel_in: endpoint {
+ 				remote-endpoint = <&mdss_dsi0_out>;
+ 			};
+ 		};
+  	};
+ };
+ 
+ &mdss_dsi0_out {
+  	data-lanes = <0 1 2 3>;
+  	remote-endpoint = <&panel_in>;
+ };
+
+ &mdss_dsi0_phy {
+ 	vdds-supply = <&vreg_l5a_0p88>;
+ 	status = "okay";
+ };
+
 &pcie0 {
 	status = "okay";
 };
