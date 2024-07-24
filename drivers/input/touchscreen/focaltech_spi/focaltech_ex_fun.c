@@ -615,36 +615,6 @@ static ssize_t fts_hw_reset_store(
 	return -EPERM;
 }
 
-/* fts_irq interface */
-static ssize_t fts_irq_show(
-	struct device *dev, struct device_attribute *attr, char *buf)
-{
-	ssize_t count = 0;
-	struct irq_desc *desc = irq_to_desc(fts_data->irq);
-
-	count = snprintf(buf, PAGE_SIZE, "irq_depth:%d\n", desc->depth);
-
-	return count;
-}
-
-static ssize_t fts_irq_store(
-	struct device *dev,
-	struct device_attribute *attr, const char *buf, size_t count)
-{
-	struct input_dev *input_dev = fts_data->input_dev;
-
-	mutex_lock(&input_dev->mutex);
-	if (FTS_SYSFS_ECHO_ON(buf)) {
-		FTS_INFO("enable irq");
-		fts_irq_enable();
-	} else if (FTS_SYSFS_ECHO_OFF(buf)) {
-		FTS_INFO("disable irq");
-		fts_irq_disable();
-	}
-	mutex_unlock(&input_dev->mutex);
-	return count;
-}
-
 /* fts_boot_mode interface */
 static ssize_t fts_bootmode_store(
 	struct device *dev,
@@ -1223,7 +1193,6 @@ static DEVICE_ATTR(fts_force_upgrade, S_IRUGO | S_IWUSR, fts_fwforceupg_show, ft
 static DEVICE_ATTR(fts_driver_info, S_IRUGO | S_IWUSR, fts_driverinfo_show, fts_driverinfo_store);
 static DEVICE_ATTR(fts_dump_reg, S_IRUGO | S_IWUSR, fts_dumpreg_show, fts_dumpreg_store);
 static DEVICE_ATTR(fts_hw_reset, S_IRUGO | S_IWUSR, fts_hw_reset_show, fts_hw_reset_store);
-static DEVICE_ATTR(fts_irq, S_IRUGO | S_IWUSR, fts_irq_show, fts_irq_store);
 static DEVICE_ATTR(fts_boot_mode, S_IRUGO | S_IWUSR, fts_bootmode_show, fts_bootmode_store);
 static DEVICE_ATTR(fts_touch_point, S_IRUGO | S_IWUSR, fts_tpbuf_show, fts_tpbuf_store);
 static DEVICE_ATTR(fts_log_level, S_IRUGO | S_IWUSR, fts_log_level_show, fts_log_level_store);
@@ -1238,7 +1207,6 @@ static struct attribute *fts_attributes[] = {
 	&dev_attr_fts_force_upgrade.attr,
 	&dev_attr_fts_driver_info.attr,
 	&dev_attr_fts_hw_reset.attr,
-	&dev_attr_fts_irq.attr,
 	&dev_attr_fts_boot_mode.attr,
 	&dev_attr_fts_touch_point.attr,
 	&dev_attr_fts_log_level.attr,
