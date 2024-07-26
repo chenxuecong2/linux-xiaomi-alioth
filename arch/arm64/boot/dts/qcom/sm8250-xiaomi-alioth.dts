@@ -29,7 +29,7 @@
  
  / {
  	model = "Redmi K40";
-	compatible = "xiaomi,umi", "qcom,sm8250";
+	compatible = "xiaomi,alioth", "qcom,sm8250";
 	chassis-type = "handset";
 	
 	qcom,msm-id = <QCOM_ID_SM8250 0x20001>;
@@ -53,14 +53,7 @@
 			format = "a8r8g8b8";
 		};
 	};
- 
-	 battery: battery {
-	  	compatible = "simple-battery";
-	  	voltage-min-design-microvolt = <4440000>;
-	  	energy-full-design-microwatt-hours = <16600000>;
-	        charge-full-design-microamp-hours = <4300000>;
-	};
- 
+	 
 	gpio_keys: gpio-keys {
 		compatible = "gpio-keys";
  
@@ -497,6 +490,16 @@
 	};
 };
 
+&qup_spi4_cs_gpio {
+	drive-strength = <6>;
+	bias-pull-down;
+};
+
+&qup_spi4_data_clk {
+	drive-strength = <6>;
+	bias-pull-down;
+};
+
 &qupv3_id_0 {
 	status = "okay";
 };
@@ -590,12 +593,13 @@
 };
 
 &spi4 {
-	clock-frequency = <400000>;
 	status = "ok";
-	firmware-name = "qcom/focaltech_ts_fw.bin";
-
+	pinctrl-names = "default";
+	pinctrl-0 = <&qup_spi4_data_clk &qup_spi4_cs_gpio>;
+	cs-gpios = <&tlmm 11 GPIO_ACTIVE_LOW>;
 	focaltech@0 {
-		status = "ok";
+		firmware-name = "qcom/focaltech_ts_fw.bin";
+	        status = "okay";
 		compatible = "focaltech,fts";
 		reg = <0x0>;
 		spi-max-frequency = <10000000>;
@@ -619,38 +623,6 @@
 						20 20 20 10>;
 	};
 };
-
-&mdss {
-        status = "okay";
- };
- 
- &mdss_dsi0 {
- 	vdda-supply = <&vreg_l9a_1p2>;
- 	qcom,master-dsi;
-  	status = "okay";
- 
- 	display_panel: panel@0 {
-  		reg = <0>;
- 		vddio-supply = <&vreg_l14a_1p88>;
-  		reset-gpios = <&tlmm 12 0>;
-		
- 		port {
- 			panel_in: endpoint {
- 				remote-endpoint = <&mdss_dsi0_out>;
- 			};
- 		};
-  	};
- };
- 
- &mdss_dsi0_out {
-  	data-lanes = <0 1 2 3>;
-  	remote-endpoint = <&panel_in>;
- };
-
- &mdss_dsi0_phy {
- 	vdds-supply = <&vreg_l5a_0p88>;
- 	status = "okay";
- };
 
 &pcie0 {
 	status = "okay";
