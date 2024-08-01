@@ -703,8 +703,8 @@ config DRM_PANEL_SAMSUNG_SOFEF00
 
 	  The panels are 2280x1080@60Hz and 2340x1080@60Hz respectively
 
-config DRM_PANEL_SAMSUNG_K11A
-	tristate "Samsung K11A Redmi K40 DSI cmd mode panels"
+config DRM_PANEL_SAMSUNG_FT3658U
+	tristate "Samsung FT3658U Redmi K40 DSI cmd mode panels"
 	depends on OF
 	depends on DRM_MIPI_DSI
 	depends on BACKLIGHT_CLASS_DEVICE

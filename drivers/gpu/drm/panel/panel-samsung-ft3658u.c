@@ -327,7 +327,7 @@ static void k11a_38_08_0a_dsc_remove(struct mipi_dsi_device *dsi)
 }
 
 static const struct of_device_id k11a_38_08_0a_dsc_of_match[] = {
-	{ .compatible = "mdss,k11a-38-08-0a-dsc" },
+	{ .compatible = "xiaomi,samsung-ft3658u" },
 	{ /* sentinel */ }
 };
 MODULE_DEVICE_TABLE(of, k11a_38_08_0a_dsc_of_match);
